@@ -1,0 +1,31 @@
+{
+ "_说明": "复制为 settings.json（不进仓库）再按本机改。没写的键用默认值；不配置的面板不显示。下面全是示例占位。",
+ "thresholds": {"cpu": 90, "ram": 85, "gpu": 90, "vram": 85},
+ "ports": [["示例服务 A", 8000], ["示例服务 B", 9000]],
+ "windows_services": ["ExampleService"],
+ "http_checks": [
+  {"group": "模型服务", "name": "已加载模型", "url": "http://127.0.0.1:PORT/path", "kind": "models", "down_level": "", "down_note": "未运行"},
+  {"group": "健康检查", "name": "示例 /ready", "url": "http://127.0.0.1:PORT/ready", "kind": "status", "down_level": "bad"}
+ ],
+ "redis": {
+  "host": "127.0.0.1", "port": 0, "db": 0,
+  "scheduler": {"name": "调度器", "status_key": "app:scheduler:status", "task_prefix": "app:scheduler:task:"},
+  "workers_prefix": "app:workers:",
+  "queues": {"namespace": "queue-ns", "names": ["default"]},
+  "jobs": {"prefix": "app:job:", "label": "任务记录"}
+ },
+ "owner_rules": [
+  {"match": "some_scheduler_module", "label": "调度器"},
+  {"match": "some_agent.exe", "label": "某代理"}
+ ],
+ "dir_pattern": "my_project(_[A-Za-z0-9_]+)?",
+ "dir_root_tag": "main",
+ "lock_dirs": ["C:\\path\\to\\ops"],
+ "lock_notes": {"maintenance.flag": "维护中"},
+ "activity_dirs": ["C:\\path\\to\\logs"],
+ "state_files": [
+  {"label": "作业窗口", "path": "C:\\path\\to\\STATE.json",
+   "name_fields": ["window.job", "window.kind"], "time_field": "window.nominal_at", "status_field": "status",
+   "detail_fields": ["exit"], "bad": ["missed", "failed"], "warn": ["partial"], "limit": 14}
+ ]
+}

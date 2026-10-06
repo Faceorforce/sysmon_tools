@@ -1,0 +1,5 @@
+logs/
+settings.json
+settings.tmp
+__pycache__/
+*.lnk
